@@ -54,4 +54,42 @@ public class ProductService {
         Product savedProduct = productRepository.save(product);
         return productMapper.toResponse(savedProduct);
     }
+
+    @Transactional
+    public ProductResponse updateProduct(Long id, ProductRequest request) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found"));
+
+        Producer producer = producerRepository.findById(request.producerId())
+                .orElseThrow(() -> new EntityNotFoundException("Producer not found"));
+
+        product.setName(request.name());
+        product.setDescription(request.description());
+        product.setPrice(request.price());
+        product.setProducer(producer);
+
+        product.getAttributes().clear();
+
+        if (request.attributes() != null) {
+            request.attributes().forEach(attributeRequest -> {
+                ProductAttribute attribute = new ProductAttribute();
+                attribute.setAttributeName(attributeRequest.name());
+                attribute.setAttributeValue(attributeRequest.value());
+                attribute.setProduct(product);
+                product.getAttributes().add(attribute);
+            });
+        }
+
+        Product savedProduct = productRepository.save(product);
+        return productMapper.toResponse(savedProduct);
+    }
+
+    @Transactional
+    public void deleteProduct(Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new EntityNotFoundException("Product not found");
+        }
+
+        productRepository.deleteById(id);
+    }
 }
