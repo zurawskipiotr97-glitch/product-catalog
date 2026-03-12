@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 003-create-product-attribute
-      author: piotr
+      author: zurawskipiotr97-glitch
       changes:
         - createTable:
             tableName: product_attribute

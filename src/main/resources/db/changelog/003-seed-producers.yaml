@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-insert-producers
+      author: zurawskipiotr97-glitch
+      changes:
+        - insert:
+            tableName: producer
+            columns:
+              - column:
+                  name: name
+                  value: Samsung
+        - insert:
+            tableName: producer
+            columns:
+              - column:
+                  name: name
+                  value: Apple
+        - insert:
+            tableName: producer
+            columns:
+              - column:
+                  name: name
+                  value: Sony

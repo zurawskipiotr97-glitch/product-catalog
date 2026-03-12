@@ -1,0 +1,13 @@
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "Galaxy S24",
+  "description": "Smartphone",
+  "price": 3999.99,
+  "producerId": 1,
+  "attributes": [
+    { "name": "color", "value": "black" },
+    { "name": "memory", "value": "256GB" }
+  ]
+}
