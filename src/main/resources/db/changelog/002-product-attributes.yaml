@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-product-attribute
+      author: piotr
+      changes:
+        - createTable:
+            tableName: product_attribute
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: attribute_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: attribute_value
+                  type: varchar(2000)
+
+        - addForeignKeyConstraint:
+            baseTableName: product_attribute
+            baseColumnNames: product_id
+            constraintName: fk_attribute_product
+            referencedTableName: product
+            referencedColumnNames: id
